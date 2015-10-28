@@ -37,11 +37,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
 
-        /*Parse.enableLocalDatastore(this);
+        //Parse.enableLocalDatastore(this);
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();*/
 
         eMail = (EditText) findViewById(R.id.eMail_LOGIN);
         password = (EditText) findViewById(R.id.password_LOGIN);
@@ -124,7 +121,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         else if(!eMail.getText().toString().endsWith("@mail.usf.edu")
                 && !eMail.getText().toString().endsWith("@usf.edu")
                 && !eMail.getText().toString().endsWith("@cse.usf.edu")) {
-            displayPopup("Need a USF E-Mail to Use the App. Please register.");
+            displayPopup("Need a USF E-Mail to Use the App.");
         }
         else if(password.getText().length() <= 5) {
             displayPopup("Incorrect password");

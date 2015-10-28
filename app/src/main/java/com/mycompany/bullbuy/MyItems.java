@@ -4,13 +4,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
-public class MyItems extends AppCompatActivity {
+import com.parse.ParseObject;
+import com.parse.ParseQueryAdapter;
 
+public class MyItems extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+    private ParseQueryAdapter<ParseObject> defaultAdapter;
+    private ListView feed;
+
+    private myAdapter customAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_items);
+
+        //defaultAdapter = new ParseQueryAdapter<ParseObject>(this, "PostObject");
+        //defaultAdapter.setTextKey("Title");
+        //defaultAdapter.setImageKey("Photo");
+
+        customAdapter = new myAdapter(this);
+
+        feed = (ListView) findViewById(R.id.list_MyItems);
+        feed.setAdapter(customAdapter);
+        customAdapter.loadObjects();
+        //feed.setAdapter(defaultAdapter);
+        //defaultAdapter.loadObjects();
+
+        feed.setOnItemClickListener(this);
     }
 
     @Override
@@ -33,5 +58,10 @@ public class MyItems extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "HELLO", Toast.LENGTH_SHORT).show();
     }
 }
