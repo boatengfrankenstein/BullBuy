@@ -38,8 +38,17 @@
 
     <string name="title_activity_messenger">Messenger</string>
     <string name="Messages">Messages</string>
+    <string name="title_activity_view_my_item">ViewMyItem</string>
+    <string name="update">Update Post</string>
+    <string name="delete">Delete Post</string>
 
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_view_item">ViewItem</string>
 
+    <string name="add_watchlist">Add To Watchlist</string>
+    <string name="remove_watchlist">Remove From Watchlist</string>
+    <string name="message_seller">Message Seller</string>
+    <string name="title_activity_view_watch_item">ViewWatchItem</string>
 
 
 </resources>

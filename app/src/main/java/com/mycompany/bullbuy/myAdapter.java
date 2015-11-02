@@ -14,19 +14,27 @@ import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 /**
  * Created by David on 10/27/2015.
  */
 public class myAdapter extends ParseQueryAdapter<ParseObject>{
 
-    public myAdapter(Context context) {
+    public myAdapter(Context context, final int queryType) {
 
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
             public ParseQuery create() {
                 ParseQuery query = new ParseQuery("PostObject");
                 //query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
                 //query.setLimit(10); //Might need to remove
-                query.whereEqualTo("User", ParseUser.getCurrentUser().getUsername());
+                if(queryType == 0) { // MyItems
+                    query.whereEqualTo("User", ParseUser.getCurrentUser().getUsername());
+                }
+                else if(queryType == 1){ // Watch
+                    query.whereContainedIn("objectId", Watch.IDs);
+                }
+
                 query.addDescendingOrder("createdAt");
                 return query;
             }
@@ -60,3 +68,5 @@ public class myAdapter extends ParseQueryAdapter<ParseObject>{
         return v;
     }
 }
+
+//Source: Tutorial - ParseQueryAdapter Tutorial GitHub - Parse

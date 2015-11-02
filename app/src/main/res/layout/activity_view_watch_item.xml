@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:orientation="vertical"
+    tools:context="com.mycompany.bullbuy.ViewWatchItem">
+
+    <com.parse.ParseImageView
+        android:id="@+id/photo_ViewWatchItem"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:id="@+id/title_ViewWatchItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/price_ViewWatchItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:id="@+id/description_ViewWatchItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/messageSellerButton_ViewWatchItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/message_seller"
+        android:typeface="sans"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/removeButton_ViewWatchItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/remove_watchlist"
+        android:typeface="sans"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -13,9 +13,11 @@
         android:text="@string/Watching"
         android:layout_gravity="center_horizontal"
         android:textSize="32dp" />
-    <View
+    <ListView
+        android:id="@+id/list_Watch"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginStart="-20dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black"/>
-
+        android:layout_height="fill_parent">
+    </ListView>
 </LinearLayout>

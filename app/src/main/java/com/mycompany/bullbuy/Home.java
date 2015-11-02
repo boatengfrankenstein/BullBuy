@@ -6,21 +6,28 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.List;
 
 
-public class Home extends AppCompatActivity implements View.OnClickListener{
+public class Home extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Button postButton;
     private Button watchButton;
     private Button campusLocationsButton;
     private Button messengerButton;
     private Button myItemsButton;
+    private ListView listItems;
+    private myAdapter customAdapter;
 
+    public final static String MESSAGE = "com.mycompany.bullbuy.Home.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +39,18 @@ public class Home extends AppCompatActivity implements View.OnClickListener{
         campusLocationsButton = (Button) findViewById(R.id.campusLocations_HOME);
         messengerButton = (Button) findViewById(R.id.messenger_HOME);
         myItemsButton = (Button) findViewById(R.id.myItems_HOME);
+        listItems = (ListView) findViewById(R.id.list_Home);
 
         postButton.setOnClickListener(this);
         watchButton.setOnClickListener(this);
         campusLocationsButton.setOnClickListener(this);
         messengerButton.setOnClickListener(this);
         myItemsButton.setOnClickListener(this);
+
+        customAdapter = new myAdapter(this, -1);
+        listItems.setAdapter(customAdapter);
+        customAdapter.loadObjects();
+        listItems.setOnItemClickListener(this);
 
     }
 
@@ -108,6 +121,18 @@ public class Home extends AppCompatActivity implements View.OnClickListener{
 
     public void myItemsClicked(View view){
         Intent intent = new Intent(this, MyItems.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "Nope", Toast.LENGTH_SHORT).show();
+
+        // not an optimal solution because i have to query table for object again next activity. might need to edit, ok for now.
+        Intent intent = new Intent(this, ViewItem.class);
+        String postObjectID = customAdapter.getItem(position).getObjectId();
+
+        intent.putExtra(MESSAGE, postObjectID);
         startActivity(intent);
     }
 }

@@ -126,7 +126,6 @@ public class PostItem extends AppCompatActivity implements View.OnClickListener 
             //img = (Bitmap) getPic.get("data");
             img = BitmapFactory.decodeFile(picPath);
             photoImageView.setImageBitmap(img);
-
             // get bytes. unless i decide to save image to a file instead. i probably should.
             // declared byte[] data up top
             // see photoclicked method
