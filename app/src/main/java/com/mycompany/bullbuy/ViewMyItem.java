@@ -237,7 +237,7 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
             //upload file to parse
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             if(photoBitmap != null) {
-                photoBitmap.compress(Bitmap.CompressFormat.JPEG, 30, stream);
+                photoBitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream);
                 photoBytes = stream.toByteArray();
             }
             parsefile = new ParseFile("post.JPEG",photoBytes);

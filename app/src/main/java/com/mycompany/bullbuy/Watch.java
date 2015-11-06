@@ -20,7 +20,10 @@ public class Watch extends AppCompatActivity implements AdapterView.OnItemClickL
 
     public final static String MESSAGE = "com.mycompany.bullbuy.Watch.MESSAGE";
 
-    public static ArrayList<String> IDs = new ArrayList<String>();
+    private static ArrayList<String> IDs = new ArrayList<String>();
+    public static ArrayList<String> getIDS(){
+        return IDs;
+    }
     private myAdapter customAdapter;
     private ListView watchlist;
 

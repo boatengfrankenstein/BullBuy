@@ -12,6 +12,8 @@
     <string name="title_activity_register">Register</string>
     <string name="Name">Name</string>
     <string name="title_activity_home">Home</string>
+    <string name="search">Search BullBuy</string>
+    <string name="search_text">Search By Title</string>
 
     <string name="Post">Post</string>
     <string name="Watch">Watch</string>
@@ -44,11 +46,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_view_item">ViewItem</string>
-
+    <string name="clear">Clear</string>
     <string name="add_watchlist">Add To Watchlist</string>
     <string name="remove_watchlist">Remove From Watchlist</string>
     <string name="message_seller">Message Seller</string>
     <string name="title_activity_view_watch_item">ViewWatchItem</string>
+    <string name="title_activity_results">Results</string>
 
 
 </resources>

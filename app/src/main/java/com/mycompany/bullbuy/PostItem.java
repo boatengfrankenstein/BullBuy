@@ -132,7 +132,7 @@ public class PostItem extends AppCompatActivity implements View.OnClickListener 
             //upload file to parse
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             if(img != null) {
-                img.compress(Bitmap.CompressFormat.JPEG, 30, stream);
+                img.compress(Bitmap.CompressFormat.JPEG, 20, stream);
                 photoData = stream.toByteArray();
             }
             file = new ParseFile("post.JPEG",photoData);

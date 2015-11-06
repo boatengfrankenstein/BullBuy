@@ -3,6 +3,7 @@ package com.mycompany.bullbuy;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.parse.ParseFile;
@@ -32,7 +33,14 @@ public class myAdapter extends ParseQueryAdapter<ParseObject>{
                     query.whereEqualTo("User", ParseUser.getCurrentUser().getUsername());
                 }
                 else if(queryType == 1){ // Watch
-                    query.whereContainedIn("objectId", Watch.IDs);
+                    query.whereContainedIn("objectId", Watch.getIDS());
+                }
+                else if(queryType == 2){ // Feed
+                    query.whereNotEqualTo("User", ParseUser.getCurrentUser().getUsername());
+                }
+                else if (queryType == 3){
+                    String searchCriteria = Home.getSearchBar();
+                    query.whereContains("Title", searchCriteria);
                 }
 
                 query.addDescendingOrder("createdAt");
