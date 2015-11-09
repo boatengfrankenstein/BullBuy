@@ -39,16 +39,16 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         final Message message = (Message)getItem(position);
         final ViewHolder holder = (ViewHolder) convertView.getTag();
         final boolean isMe = message.getSenderId().equals(currentUserId);
-        final boolean isThem = message.getRecipiendId().equals(recipientUn);
+        //final boolean isThem = message.getRecipiendId().equals(recipientUn);
 
         //show message as "You" or "Them" based on current user
         if (isMe) {
             holder.youHeader.setVisibility(View.VISIBLE);
-            holder.themHeader.setVisibility(View.GONE);
+            holder.themHeader.setVisibility(View.VISIBLE);
             holder.body.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         }
-        else if (isThem) {
-            holder.youHeader.setVisibility(View.GONE);
+        else {
+            holder.youHeader.setVisibility(View.VISIBLE);
             holder.themHeader.setVisibility(View.VISIBLE);
             holder.body.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
         }

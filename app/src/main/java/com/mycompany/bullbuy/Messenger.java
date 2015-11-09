@@ -112,6 +112,29 @@ public class Messenger extends AppCompatActivity {
 
     //Query messages from Parse to be loaded into the chat adapter
     private void receiveMessage() {
+        //queries variable will contain two queries that are passed to the or function
+        ArrayList<ParseQuery<Message>> queries = new ArrayList<ParseQuery<Message>>();
+
+        //initialize queries for conversations
+        ParseQuery<Message> senderQuery = ParseQuery.getQuery(Message.class);
+        ParseQuery<Message> recipientQuery = ParseQuery.getQuery(Message.class);
+        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
+
+        //use senderQuery to check "senderId" column for current user
+        senderQuery.whereEqualTo("senderId", currentUserUn);
+        //use recipientQuery to check "recipientId" column for current user
+        recipientQuery.whereEqualTo("recipientId", currentUserUn);
+        //add both queries to queries variable, which will be passed to the or function
+        queries.add(senderQuery);
+        queries.add(recipientQuery);
+
+        //assign query to account for current user being either sender OR recipient
+        query.or(queries);
+
+        query.whereEqualTo("parentConversation", conversationId);
+        query.orderByAscending("createdAt");
+
+        /* THIS SECTION FORMER CODE - TESTING ABOVE NEW CODE
         //initialize query
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
 
@@ -122,6 +145,7 @@ public class Messenger extends AppCompatActivity {
         query.whereContainedIn("senderId", Arrays.asList(uns));
         query.whereContainedIn("recipientId", Arrays.asList(uns));
         query.whereEqualTo("parentConversation", conversationId);
+        */
 
         //fetch messages by executing query
         query.findInBackground(new FindCallback<Message>() {

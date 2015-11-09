@@ -68,7 +68,7 @@ public class Conversations extends AppCompatActivity {
 
         query.orderByDescending("createdAt");
         //query.whereEqualTo("sellerUn", currentUserUn);
-        query.whereEqualTo("buyerUn", currentUserUn);
+        //query.whereEqualTo("buyerUn", currentUserUn);
 
         //fetch conversations by executing query
         query.findInBackground(new FindCallback<Conversation>() {
