@@ -163,6 +163,7 @@ public class ParseImageView extends ImageView {
         }
         if (data != null) {
           Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+          bitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
           if (bitmap != null) {
             setImageBitmap(bitmap);
           }

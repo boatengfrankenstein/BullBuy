@@ -73,28 +73,6 @@ public class PostItem extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_post_item, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     private void photoClicked(View view){
         if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
             displayPopup("The device has no camera.");
@@ -132,7 +110,7 @@ public class PostItem extends AppCompatActivity implements View.OnClickListener 
             //upload file to parse
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             if(img != null) {
-                img.compress(Bitmap.CompressFormat.JPEG, 20, stream);
+                img.compress(Bitmap.CompressFormat.JPEG, 10, stream);
                 photoData = stream.toByteArray();
             }
             file = new ParseFile("post.JPEG",photoData);
@@ -147,7 +125,7 @@ public class PostItem extends AppCompatActivity implements View.OnClickListener 
         if(file == null) {
             displayPopup("Photo is required");
         }
-        else if(itemTitle.getText().toString().length() <= 4){
+        else if(itemTitle.getText().toString().length() < 4){
             displayPopup("Item title has to be at least 4 characters");
         }
         else if(!(itemPrice.getText().toString().matches("\\d+\\.\\d\\d"))){
@@ -160,6 +138,8 @@ public class PostItem extends AppCompatActivity implements View.OnClickListener 
         else if(file != null) {
             ParseObject postObject = new ParseObject("PostObject");
             postObject.put("Title", itemTitle.getText().toString());
+            postObject.put("Title_Search", itemTitle.getText().toString().toLowerCase() + " "
+                    + itemDescription.getText().toString().toLowerCase());
             postObject.put("Price", itemPrice.getText().toString());
             postObject.put("Description", itemDescription.getText().toString());
             postObject.put("Photo", file);

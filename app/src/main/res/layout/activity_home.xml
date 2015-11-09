@@ -7,46 +7,12 @@
     android:orientation="vertical"
     android:focusableInTouchMode="true"
     tools:context="com.mycompany.bullbuy.Home">
-
-    <RelativeLayout
+    <Spinner
+        android:id="@+id/spinner_Home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/postButton_HOME"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="@string/Post"/>
-        <Button
-            android:id="@+id/watchButton_HOME"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="@string/Watch"/>
-        <Button
-            android:id="@+id/campusLocations_HOME"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/Locations"/>
-    </RelativeLayout>
+    </Spinner>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/messenger_HOME"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="@string/Messenger"/>
-        <Button
-            android:id="@+id/myItems_HOME"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/MyItems"/>
-    </RelativeLayout>
     <EditText
         android:id="@+id/searchText_Home"
         android:hint="@string/search"

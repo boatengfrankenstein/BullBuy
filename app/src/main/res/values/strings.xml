@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">"BullBuy "</string>
-
+    <string-array name="app_menu">
+        <item>Navigate to...</item>
+        <item>Home</item>
+        <item>Sell an item</item>
+        <item>Watchlist</item>
+        <item>Campus</item>
+        <item>Messaging</item>
+        <item>My Items</item>
+        <item>Log Out</item>
+    </string-array>
     <string name="action_settings">Settings</string>
     <string name="Welcome">Welcome to BullBuy</string>
     <string name="Login">Login</string>
@@ -13,44 +22,54 @@
     <string name="Name">Name</string>
     <string name="title_activity_home">Home</string>
     <string name="search">Search BullBuy</string>
-    <string name="search_text">Search By Title</string>
+    <string name="search_text">Search</string>
 
     <string name="Post">Post</string>
     <string name="Watch">Watch</string>
     <string name="Locations">USF Campus</string>
     <string name="Messenger">Messenger</string>
     <string name="MyItems">My Items</string>
-    <string name="title_activity_post_item">PostItem</string>
+    <string name="title_activity_post_item">Sell an item</string>
 
     <string name="Constructing">UNDER CONSTRUCTION</string>
 
-    <string name="ItemTitle">Title (at least 5 characters)</string>
+    <string name="ItemTitle">Title (at least 4 characters)</string>
     <string name="ItemPrice">Price (in Dollars - format: x.xx)</string>
     <string name="ItemDescription">Description (at least 10 characters)</string>
-    <string name="title_activity_watch">Watch</string>
+    <string name="title_activity_watch">Watchlist</string>
     <string name="Watching">Watch List</string>
 
-    <string name="title_activity_locations">Locations</string>
     <string name="locationsList">USF On-Campus Locations</string>
     <string name="MSC">Marshall Student Center (MSC)</string>
-    <string name="title_activity_usflocations">USFLocations</string>
+    <string name="title_activity_usflocations">Map</string>
+    <string-array name="locations">
+        <item>None</item>
+        <item>Library</item>
+        <item>Marshall Student Center</item>
+        <item>Interdisciplinary Sciences</item>
+        <item>Business</item>
+        <item>Cooper Hall</item>
+        <item>CIS</item>
+        <item>Rec Center</item>
+        <item>USF Bookstore</item>
+    </string-array>
 
-    <string name="title_activity_my_items">MyItems</string>
+    <string name="title_activity_my_items">My Items</string>
     <string name="myItems">My Items</string>
 
-    <string name="title_activity_messenger">Messenger</string>
+    <string name="title_activity_messenger">Messaging</string>
     <string name="Messages">Messages</string>
-    <string name="title_activity_view_my_item">ViewMyItem</string>
+    <string name="title_activity_view_my_item">View Item</string>
     <string name="update">Update Post</string>
     <string name="delete">Delete Post</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_view_item">ViewItem</string>
+    <string name="title_activity_view_item">View Item</string>
     <string name="clear">Clear</string>
     <string name="add_watchlist">Add To Watchlist</string>
     <string name="remove_watchlist">Remove From Watchlist</string>
     <string name="message_seller">Message Seller</string>
-    <string name="title_activity_view_watch_item">ViewWatchItem</string>
+    <string name="title_activity_view_watch_item">View Item</string>
     <string name="title_activity_results">Results</string>
 
 

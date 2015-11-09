@@ -7,24 +7,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
 
-public class Home extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class Home extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
-    private Button postButton;
-    private Button watchButton;
-    private Button campusLocationsButton;
-    private Button messengerButton;
-    private Button myItemsButton;
     private static EditText searchBar;
     private Button searchButton;
     private Button clearButton;
@@ -32,8 +30,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
     private myAdapter customAdapter;
     private myAdapter searchAdapter;
 
+    private Spinner spinner;
+
     public static String getSearchBar(){
-        return searchBar.getText().toString();
+        return searchBar.getText().toString().toLowerCase();
     }
 
     public final static String MESSAGE = "com.mycompany.bullbuy.Home.MESSAGE";
@@ -43,23 +43,19 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        postButton = (Button) findViewById(R.id.postButton_HOME);
-        watchButton = (Button) findViewById(R.id.watchButton_HOME);
-        campusLocationsButton = (Button) findViewById(R.id.campusLocations_HOME);
-        messengerButton = (Button) findViewById(R.id.messenger_HOME);
-        myItemsButton = (Button) findViewById(R.id.myItems_HOME);
         searchBar = (EditText) findViewById(R.id.searchText_Home);
         searchButton = (Button) findViewById(R.id.searchButton_Home);
         clearButton = (Button) findViewById(R.id.clearButton_Home);
         listItems = (ListView) findViewById(R.id.list_Home);
 
-        postButton.setOnClickListener(this);
-        watchButton.setOnClickListener(this);
-        campusLocationsButton.setOnClickListener(this);
-        messengerButton.setOnClickListener(this);
-        myItemsButton.setOnClickListener(this);
         searchButton.setOnClickListener(this);
         clearButton.setOnClickListener(this);
+
+        spinner = (Spinner) findViewById(R.id.spinner_Home);
+        ArrayAdapter<CharSequence> menuAdapter = ArrayAdapter.createFromResource(this, R.array.app_menu, android.R.layout.simple_spinner_item);
+        menuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(menuAdapter);
+        spinner.setOnItemSelectedListener(this);
 
         customAdapter = new myAdapter(this, 2);
         listItems.setAdapter(customAdapter);
@@ -70,22 +66,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
 
     @Override
     public void onClick(View v) {
+        //listItems.removeAllViewsInLayout();
         switch(v.getId()){
-            case R.id.postButton_HOME:
-                postClicked(v);
-                break;
-            case R.id.watchButton_HOME:
-                watchClicked(v);
-                break;
-            case R.id.campusLocations_HOME:
-                usfCampusClicked(v);
-                break;
-            case R.id.messenger_HOME:
-                messengerClicked(v);
-                break;
-            case R.id.myItems_HOME:
-                myItemsClicked(v);
-                break;
             case R.id.searchButton_Home:
                 searchButtonClicked(v);
                 break;
@@ -93,55 +75,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
                 clearButtonClicked(v);
                 break;
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void postClicked(View view){
-        Intent intent = new Intent(this, PostItem.class);
-        startActivity(intent);
-    }
-
-    private void watchClicked(View view){
-        Intent intent = new Intent(this, Watch.class);
-        startActivity(intent);
-    }
-
-    private void usfCampusClicked(View view){
-        /*Need to make new activity that contains map. I
-        think I need to go through the process again.*/
-        Intent intent = new Intent(this, USFLocations.class);
-        startActivity(intent);
-    }
-
-    private void messengerClicked(View view){
-        Intent intent = new Intent(this, Messenger.class);
-        startActivity(intent);
-    }
-
-    private void myItemsClicked(View view){
-        Intent intent = new Intent(this, MyItems.class);
-        startActivity(intent);
     }
 
     private void searchButtonClicked(View view){
@@ -176,5 +109,42 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
 
         intent.putExtra(MESSAGE, postObjectID);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Class selection = null;
+        switch(parent.getSelectedItem().toString()){
+            case "Home":
+                return;
+            case "Sell an item":
+                selection = PostItem.class;
+                break;
+            case "Watchlist":
+                selection = Watch.class;
+                break;
+            case "Campus":
+                selection = USFLocations.class;
+                break;
+            case "Messaging":
+                selection = Messenger.class;
+                break;
+            case "My Items":
+                selection = MyItems.class;
+                break;
+            case "Log Out":
+                ParseUser.logOut();
+                selection = Login.class;
+                break;
+            default:
+                return;
+        }
+        Intent intent = new Intent(this, selection);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

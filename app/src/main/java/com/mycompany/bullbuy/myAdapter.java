@@ -3,6 +3,7 @@ package com.mycompany.bullbuy;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
@@ -40,9 +41,9 @@ public class myAdapter extends ParseQueryAdapter<ParseObject>{
                 }
                 else if (queryType == 3){
                     String searchCriteria = Home.getSearchBar();
-                    query.whereContains("Title", searchCriteria);
+                    query.whereContains("Title_Search", searchCriteria);
                 }
-
+                
                 query.addDescendingOrder("createdAt");
                 return query;
             }

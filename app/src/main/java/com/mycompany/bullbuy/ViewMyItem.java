@@ -102,28 +102,6 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_my_item, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.updateButton_ViewMyItem:
@@ -149,6 +127,15 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
         }
 
         // need to check fields meet minimum requirements before updating like in postitem i think
+        else if(itemTitle.getText().toString().length() < 4) {
+            Toast.makeText(this, "Item title has to be at least 4 characters", Toast.LENGTH_SHORT).show();
+        }
+        else if (!(itemPrice.getText().toString().matches("\\d+\\.\\d\\d"))){
+            Toast.makeText(this, "Please enter a valid currency format for price(ex: 0.00)", Toast.LENGTH_SHORT).show();
+        }
+        else if (itemDescription.getText().toString().length() <= 9) {
+            Toast.makeText(this, "Item description must be at least 10 characters", Toast.LENGTH_SHORT).show();
+        }
 
         else{
 
@@ -169,10 +156,9 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
             _PostObject.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
-                    if(e == null){
+                    if (e == null) {
                         Toast.makeText(ViewMyItem.this, "Updated", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         Toast.makeText(ViewMyItem.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
