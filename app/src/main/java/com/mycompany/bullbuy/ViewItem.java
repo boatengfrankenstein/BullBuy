@@ -1,7 +1,6 @@
 package com.mycompany.bullbuy;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,18 +10,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
-import org.w3c.dom.Text;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.List;
 
 public class ViewItem extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,6 +37,12 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
     private Button messageButton;
     private Button addButton;
 
+    // Added by Dane - gets item creator's name, item's title,
+    // and current user
+    private String thisObjectTitle;
+    private String username;
+    private static String currentUserUn;
+    private String conversationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,12 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
         Intent intent = getIntent();
         postObjectID = intent.getStringExtra(Home.MESSAGE);
 
+        //Added by Dane - initialize conversation strings
+        username = "";
+        thisObjectTitle = "";
+        currentUserUn = ParseUser.getCurrentUser().getUsername();
+        conversationId = "";
+
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PostObject");
 
         query.getInBackground(postObjectID, new GetCallback<ParseObject>() {
@@ -66,13 +79,30 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
                     itemTitle.setText(PostObject.get("Title").toString());
                     itemPrice.setText('$' + PostObject.get("Price").toString());
                     itemDescription.setText(PostObject.get("Description").toString());
+                    //Added by Dane - gets item's title and creator's username for messaging function
+                    setThisObjectTitle(PostObject.get("Title").toString());
+                    setUsername(PostObject.get("User").toString());
                 }
             }
         });
 
         addButton.setOnClickListener(this);
         messageButton.setOnClickListener(this);
+    }
 
+    //Quick function to set username of item's poster - added by Dane
+    public void setUsername(String string) {
+        username = string;
+    }
+
+    //Quick function to set title of the item - added by Dane
+    public void setThisObjectTitle(String string) {
+        thisObjectTitle = string;
+    }
+
+    //Quick function to set objectId of newly created conversation - added by Dane
+    public void setThisConversationId(String string) {
+        conversationId = string;
     }
 
     @Override
@@ -88,7 +118,49 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void messageSellerClicked(){
-        Intent intent = new Intent(this, Messenger.class);
+        // Edited by Dane to create a new conversation if one does not exist for this item,
+        // then send the user to the Conversations page
+
+        //only create a conversation if one does not already exist
+        ParseQuery<Conversation> query = ParseQuery.getQuery(Conversation.class);
+        query.whereEqualTo("itemTitle", thisObjectTitle);
+        query.whereEqualTo("buyerUn", currentUserUn);
+        query.findInBackground(new FindCallback<Conversation>() {
+            @Override
+            public void done(List<Conversation> conversationMatch, ParseException e) {
+                if (e == null) {
+                    if (conversationMatch.size() == 0) {
+                        //create conversation with object creator's username as recipient of messages
+                        Conversation conversation = new Conversation();
+                        conversation.setItemTitle(thisObjectTitle);
+                        conversation.setSellerUn(username);
+                        conversation.setBuyerUn(currentUserUn);
+                        //save conversation to Parse
+                        conversation.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                launchNextActivity(true);
+                            }
+                        });
+                    } else {
+                        launchNextActivity(false);
+                    }
+                }
+            }
+        });
+    }
+
+    //function added by Dane
+    //launch Conversations with different message, depending on
+    // whether the conversation already existed or not
+    private void launchNextActivity(boolean b) {
+        if (b) {
+            Toast.makeText(this, "Conversation opened; see top of list.", Toast.LENGTH_LONG).show();
+        }
+        else if (!b) {
+            Toast.makeText(this, "Conversation already existed; choose from conversations list.", Toast.LENGTH_LONG).show();
+        }
+        Intent intent = new Intent(this, Conversations.class);
         startActivity(intent);
     }
 

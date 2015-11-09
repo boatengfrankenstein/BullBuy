@@ -127,7 +127,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
                 selection = USFLocations.class;
                 break;
             case "Messaging":
-                selection = Messenger.class;
+                selection = Conversations.class;
                 break;
             case "My Items":
                 selection = MyItems.class;
