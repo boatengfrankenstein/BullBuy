@@ -13,23 +13,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="You"
+            android:text="@string/sender_message_header"
             android:textSize="16sp"
             android:singleLine="true"
             android:layout_alignParentLeft="true"
-            android:paddingLeft="10dp"
-            android:paddingBottom="6dp"
-            android:textColor="@android:color/black" android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/txtReceiver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:text="Them"
-            android:textSize="16sp"
-            android:singleLine="true"
-            android:layout_alignParentRight="true"
             android:paddingLeft="10dp"
             android:paddingBottom="6dp"
             android:textColor="@android:color/black" android:textStyle="bold"/>
@@ -50,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                android:text="Hello"
+                android:text="@string/hello_world"
                 />
         </RelativeLayout>
     </RelativeLayout>

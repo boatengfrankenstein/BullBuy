@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,38 +28,23 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_left, parent, false);
-            final ViewHolder holder = new ViewHolder();
-            holder.youHeader = (TextView) convertView.findViewById(R.id.txtSender);
-            holder.themHeader = (TextView) convertView.findViewById(R.id.txtReceiver);
-            holder.body = (TextView) convertView.findViewById(R.id.txtMessage);
-            convertView.setTag(holder);
-        }
-
-        final Message message = (Message)getItem(position);
-        final ViewHolder holder = (ViewHolder) convertView.getTag();
+        final Message message = getItem(position);
         final boolean isMe = message.getSenderId().equals(currentUserId);
-        //final boolean isThem = message.getRecipiendId().equals(recipientUn);
 
-        //show message as "You" or "Them" based on current user
         if (isMe) {
-            holder.youHeader.setVisibility(View.VISIBLE);
-            holder.themHeader.setVisibility(View.VISIBLE);
-            holder.body.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_left, parent, false);
         }
         else {
-            holder.youHeader.setVisibility(View.VISIBLE);
-            holder.themHeader.setVisibility(View.VISIBLE);
-            holder.body.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_right, parent, false);
         }
+        final ViewHolder holder = new ViewHolder();
+        holder.body = (TextView) convertView.findViewById(R.id.txtMessage);
+
         holder.body.setText(message.getBody());
         return convertView;
     }
 
     final class ViewHolder {
-        public TextView youHeader;
-        public TextView themHeader;
         public TextView body;
     }
 }

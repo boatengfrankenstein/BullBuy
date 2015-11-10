@@ -87,9 +87,6 @@ public class Conversations extends AppCompatActivity {
                         }
                     });
                 }
-                else {
-                    Toast.makeText(Conversations.this, "Error from Conversations.loadConversations().", Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }

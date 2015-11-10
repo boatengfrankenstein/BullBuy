@@ -73,4 +73,6 @@
     <string name="title_activity_results">Results</string>
     <string name="title_activity_conversations">Conversations</string>
     <string name="conversationsListHeader">Tap a conversation to open it.</string>
+    <string name="sender_message_header">You</string>
+    <string name="recipient_message_header">Them</string>
 </resources>

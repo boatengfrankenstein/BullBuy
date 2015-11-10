@@ -162,9 +162,6 @@ public class Messenger extends AppCompatActivity {
                         mFirstLoad = false;
                     }
                 }
-                else {
-                    Toast.makeText(Messenger.this, "Error from Messenger.receiveMessage().", Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }
