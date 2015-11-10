@@ -3,9 +3,9 @@
     <string-array name="app_menu">
         <item>Navigate to...</item>
         <item>Home</item>
-        <item>Sell an item</item>
-        <item>Watchlist</item>
-        <item>Campus</item>
+        <item>Sell Item</item>
+        <item>Watch List</item>
+        <item>Campus Locations</item>
         <item>Messaging</item>
         <item>My Items</item>
         <item>Log Out</item>
@@ -41,18 +41,23 @@
 
     <string name="locationsList">USF On-Campus Locations</string>
     <string name="MSC">Marshall Student Center (MSC)</string>
-    <string name="title_activity_usflocations">Map</string>
+    <string name="title_activity_usflocations">Campus Locations</string>
+
     <string-array name="locations">
-        <item>None</item>
-        <item>Library</item>
+        <item>Current Location</item>
+        <item>Tampa Campus Library</item>
         <item>Marshall Student Center</item>
         <item>Interdisciplinary Sciences</item>
-        <item>Business</item>
+        <item>Muma College of Business</item>
         <item>Cooper Hall</item>
-        <item>CIS</item>
-        <item>Rec Center</item>
+        <item>CIS Building</item>
+        <item>Recreation Center</item>
+        <item>Juniper-Poplar Hall</item>
+        <item>Engineering Building II</item>
         <item>USF Bookstore</item>
     </string-array>
+
+    <string name="showMarkers">Show All Locations</string>
 
     <string name="title_activity_my_items">My Items</string>
     <string name="myItems">My Items</string>

@@ -12,9 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -23,6 +23,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -47,6 +48,15 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
     protected String mLastUpdateTime;
 
     TextView mLastUpdateTimeTextView;
+    TextView hours;
+    TextView hoursMonday;
+    TextView hoursTuesday;
+    TextView hoursWednesday;
+    TextView hoursThursday;
+    TextView hoursFriday;
+    TextView hoursSaturday;
+    TextView hoursSunday;
+    ImageView location;
     Spinner spinner;
 
     @Override
@@ -62,7 +72,15 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);
         spinner.setOnItemSelectedListener(this);
-
+        location = (ImageView) findViewById(R.id.location);
+        hours = (TextView)findViewById(R.id.hours);
+        hoursMonday = (TextView)findViewById(R.id.hoursMon);
+        hoursTuesday = (TextView)findViewById(R.id.hoursTues);
+        hoursWednesday = (TextView)findViewById(R.id.hoursWed);
+        hoursThursday = (TextView)findViewById(R.id.hoursThurs);
+        hoursFriday = (TextView)findViewById(R.id.hoursFri);
+        hoursSaturday = (TextView)findViewById(R.id.hoursSat);
+        hoursSunday = (TextView)findViewById(R.id.hoursSun);
         buildGoogleApiClient();
     }
 
@@ -126,7 +144,20 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
         LatLng latLng = new LatLng(mCurrentLocation.getLatitude(),
                 mCurrentLocation.getLongitude());
         if(mMarker == null) {
-            mMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("You"));
+            mMarker = mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 16));
+            mMarker.setTitle("Your Current Location");
+            mMarker.showInfoWindow();
+            hours.setVisibility(View.GONE);
+            hoursMonday.setVisibility(View.GONE);
+            hoursTuesday.setVisibility(View.GONE);
+            hoursWednesday.setVisibility(View.GONE);
+            hoursThursday.setVisibility(View.GONE);
+            hoursFriday.setVisibility(View.GONE);
+            hoursSaturday.setVisibility(View.GONE);
+            hoursSunday.setVisibility(View.GONE);
         } else {
             mMarker.setPosition(latLng);
         }
@@ -140,7 +171,7 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
             //Google Developers LatLngBuilder
             route.remove();
             route = mMap.addPolyline(new PolylineOptions().add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()),
-                    new LatLng(destLocation.latitude, destLocation.longitude)).width(4).color(Color.GREEN));
+                    new LatLng(destLocation.latitude, destLocation.longitude)).width(8).color(Color.rgb(4, 94, 5)));
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, (int)mMap.getCameraPosition().zoom));
 
         }
@@ -168,44 +199,222 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
         }
 
         switch(parent.getSelectedItem().toString()){
-            case "None":
+            case "Current Location":
                 return;
-            case "Library":
-                Toast.makeText(this, "Library", Toast.LENGTH_SHORT).show();
+            case "Tampa Campus Library":
                 destLocation = new LatLng(28.0595525,-82.412246415);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: 12:00am – 6:00pm");
+                hoursSaturday.setText("Saturday: 10:00am - 6:00pm");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.library));
                 break;
             case "Marshall Student Center":
-                Toast.makeText(this, "MSC", Toast.LENGTH_SHORT).show();
                 destLocation = new LatLng(28.0639342,-82.4134536);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: 7:00am - 12:00am");
+                hoursTuesday.setText("Tuesday: 7:00am - 12:00am ");
+                hoursWednesday.setText("Wednesday: 7:00am - 12:00am");
+                hoursThursday.setText("Thursday: 7:00am - 12:00am");
+                hoursFriday.setText("Friday: 7:00am - 1:00am");
+                hoursSaturday.setText("Saturday: 8:00am - 1:00am");
+                hoursSunday.setText("Sunday: 10:00am - 12:00am");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.msc));
+
                 break;
             case "Interdisciplinary Sciences":
-                Toast.makeText(this, "ISA", Toast.LENGTH_SHORT).show();
                 destLocation = new LatLng(28.0615119,-82.4165242);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours ");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: Open 24 hours");
+                hoursSaturday.setText("Saturday: Open 24 hours");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.isa));
                 break;
-            case "Business":
-                Toast.makeText(this, "BSN", Toast.LENGTH_SHORT).show();
+
+            case "Muma College of Business":
                 destLocation = new LatLng(28.0583084,-82.40996);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours ");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: Open 24 hours");
+                hoursSaturday.setText("Saturday: Open 24 hours");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.cob));
                 break;
+
             case "Cooper Hall":
-                Toast.makeText(this, "Cooper Hall", Toast.LENGTH_SHORT).show();
                 destLocation = new LatLng(28.0595977,-82.410524);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours ");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: Open 24 hours");
+                hoursSaturday.setText("Saturday: Open 24 hours");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.cooper));
                 break;
-            case "CIS":
-                Toast.makeText(this, "CIS", Toast.LENGTH_SHORT).show();
+
+            case "CIS Building":
                 destLocation = new LatLng(28.0586563,-82.4110936);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours ");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: Open 24 hours");
+                hoursSaturday.setText("Saturday: Open 24 hours");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.cis));
                 break;
-            case "Rec Center":
-                Toast.makeText(this, "Rec Center", Toast.LENGTH_SHORT).show();
+
+            case "Recreation Center":
                 destLocation = new LatLng(28.0602013,-82.4076104);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours ");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: Open 24 hours");
+                hoursSaturday.setText("Saturday: Open 24 hours");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.rec));
                 break;
+
+            case "Juniper-Poplar Hall":
+                destLocation = new LatLng(28.0602013,-82.4076104);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours ");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: Open 24 hours");
+                hoursSaturday.setText("Saturday: Open 24 hours");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.jp));
+                break;
+
+            case "Engineering Building II":
+                destLocation = new LatLng(28.0602013,-82.4076104);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours ");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: Open 24 hours");
+                hoursSaturday.setText("Saturday: Open 24 hours");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.enb));
+                break;
+
             case "USF Bookstore":
-                Toast.makeText(this, "USF Bookstore", Toast.LENGTH_SHORT).show();
                 destLocation = new LatLng(28.0634588,-82.4125229);
+                hours.setVisibility(View.VISIBLE);
+                hoursMonday.setVisibility(View.VISIBLE);
+                hoursTuesday.setVisibility(View.VISIBLE);
+                hoursWednesday.setVisibility(View.VISIBLE);
+                hoursThursday.setVisibility(View.VISIBLE);
+                hoursFriday.setVisibility(View.VISIBLE);
+                hoursSaturday.setVisibility(View.VISIBLE);
+                hoursSunday.setVisibility(View.VISIBLE);
+                hours.setText("HOURS");
+                hoursMonday.setText("Monday: Open 24 hours");
+                hoursTuesday.setText("Tuesday: Open 24 hours ");
+                hoursWednesday.setText("Wednesday: Open 24 hours");
+                hoursThursday.setText("Thursday: Open 24 hours");
+                hoursFriday.setText("Friday: Open 24 hours");
+                hoursSaturday.setText("Saturday: Open 24 hours");
+                hoursSunday.setText("Sunday: Open 24 hours");
+                location.setImageDrawable(getResources().getDrawable(R.drawable.bookstore));
                 break;
         }
         destMarker =  mMap.addMarker(new MarkerOptions().position(destLocation).title("Destination"));
+        float hue = 150;
+        destMarker.setIcon(BitmapDescriptorFactory.defaultMarker(hue));
         route = mMap.addPolyline(new PolylineOptions().add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()),
-                new LatLng(destLocation.latitude, destLocation.longitude)).width(4).color(Color.GREEN));
+                new LatLng(destLocation.latitude, destLocation.longitude)).width(8).color(Color.rgb(4, 94, 5)));
     }
 
     @Override

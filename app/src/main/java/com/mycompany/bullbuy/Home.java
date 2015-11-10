@@ -105,7 +105,13 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
         // not an optimal solution because i have to query table for object again next activity. might need to edit, ok for now.
         // maybe could just blow up view item or something idl might just leave it how it s bc time
         Intent intent = new Intent(this, ViewItem.class);
-        String postObjectID = customAdapter.getItem(position).getObjectId();
+        String postObjectID;
+        if (listItems.getAdapter() == searchAdapter){
+            postObjectID = searchAdapter.getItem(position).getObjectId();
+        }
+        else{
+            postObjectID = customAdapter.getItem(position).getObjectId();
+        }
 
         intent.putExtra(MESSAGE, postObjectID);
         startActivity(intent);
@@ -117,13 +123,13 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
         switch(parent.getSelectedItem().toString()){
             case "Home":
                 return;
-            case "Sell an item":
+            case "Sell Item":
                 selection = PostItem.class;
                 break;
-            case "Watchlist":
+            case "Watch List":
                 selection = Watch.class;
                 break;
-            case "Campus":
+            case "Campus Locations":
                 selection = USFLocations.class;
                 break;
             case "Messaging":

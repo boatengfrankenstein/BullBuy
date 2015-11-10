@@ -85,7 +85,7 @@
         <activity
             android:name=".Messenger"
             android:label="@string/title_activity_messenger"
-            android:parentActivityName=".Home"
+            android:parentActivityName=".Conversations"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -121,7 +121,8 @@
         <activity
             android:name=".Conversations"
             android:label="@string/title_activity_conversations"
-            android:parentActivityName=".Home" >
+            android:parentActivityName=".Home"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mycompany.bullbuy.Home" />

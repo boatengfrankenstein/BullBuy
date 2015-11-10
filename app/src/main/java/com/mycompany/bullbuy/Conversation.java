@@ -21,6 +21,10 @@ public class Conversation extends ParseObject {
         return getString("buyerUn");
     }
 
+    public String getParticipants() {
+        return getString("participants");
+    }
+
     public void setItemTitle(String itemTitle) {
         put("itemTitle", itemTitle);
     }
@@ -31,5 +35,9 @@ public class Conversation extends ParseObject {
 
     public void setBuyerUn(String buyerUn) {
         put("buyerUn", buyerUn);
+    }
+
+    public void setParticipants(String participants) {
+        put("participants", participants);
     }
 }

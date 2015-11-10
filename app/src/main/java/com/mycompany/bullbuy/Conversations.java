@@ -40,6 +40,7 @@ public class Conversations extends AppCompatActivity {
         conversationsListView.setAdapter(cAdapter);
 
         loadConversations();
+        loadConversations(); //do it agaaaaaiiin
     }
 
     //create clickable list of user's conversations by querying them from Parse.
@@ -47,28 +48,12 @@ public class Conversations extends AppCompatActivity {
         //get current user's username
         currentUserUn = ParseUser.getCurrentUser().getUsername();
 
-        //queries variable will contain two queries that are passed to the or function
-        ArrayList<ParseQuery<Conversation>> queries = new ArrayList<ParseQuery<Conversation>>();
-
-        //initialize queries for conversations
-        ParseQuery<Conversation> buyerQuery = ParseQuery.getQuery(Conversation.class);
-        ParseQuery<Conversation> sellerQuery = ParseQuery.getQuery(Conversation.class);
+        //initialize query
         ParseQuery<Conversation> query = ParseQuery.getQuery(Conversation.class);
 
-        //use buyerQuery to check "buyerUn" column for current user
-        buyerQuery.whereEqualTo("buyerUn", currentUserUn);
-        //use sellerQuery to check "sellerUn" column for current user
-        sellerQuery.whereEqualTo("sellerUn", currentUserUn);
-        //add both queries to queries variable, which will be passed to the or function
-        queries.add(buyerQuery);
-        queries.add(sellerQuery);
-
-        //assign query to account for current user being either buyer OR seller
-        query.or(queries);
-
+        //configure query
+        query.whereContains("participants", currentUserUn);
         query.orderByDescending("createdAt");
-        //query.whereEqualTo("sellerUn", currentUserUn);
-        //query.whereEqualTo("buyerUn", currentUserUn);
 
         //fetch conversations by executing query
         query.findInBackground(new FindCallback<Conversation>() {

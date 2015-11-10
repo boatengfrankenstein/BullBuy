@@ -1,33 +1,92 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.mycompany.bullbuy.USFLocations">
-
-    <TextView android:text="@string/locationsList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="26dp" />
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp" >
 
     <Spinner
         android:id="@+id/spinner_MapsActivity"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content">
-
     </Spinner>
+
+    <TextView
+        android:paddingTop="10dp"
+        android:id="@+id/lastUpdateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/spinner_MapsActivity" />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/hours"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_MapsActivity"/>
+
+    <TextView
+        android:id="@+id/hoursMon"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hours" />
+
+    <TextView
+        android:id="@+id/hoursTues"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hoursMon" />
+
+    <TextView
+        android:id="@+id/hoursWed"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hoursTues" />
+
+    <TextView
+        android:id="@+id/hoursThurs"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hoursWed"/>
+
+    <TextView
+        android:id="@+id/hoursFri"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hoursThurs" />
+
+    <TextView
+        android:id="@+id/hoursSat"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hoursFri" />
+
+    <TextView
+        android:id="@+id/hoursSun"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hoursSat" />
+
+    <ImageView
+        android:id="@+id/location"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_MapsActivity"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="30dp"
+        android:paddingTop="20dp"/>
 
     <fragment
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
-        android:layout_height="fill_parent" android:id="@+id/map" tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment">
-        <TextView
-            android:id="@+id/lastUpdateTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_below="@id/hoursSun">
+
     </fragment>
-</LinearLayout>
+
+</RelativeLayout>

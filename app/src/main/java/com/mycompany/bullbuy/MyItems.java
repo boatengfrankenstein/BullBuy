@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.parse.ParseObject;
 import com.parse.ParseQueryAdapter;
@@ -39,8 +38,6 @@ public class MyItems extends AppCompatActivity implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "HELLO", Toast.LENGTH_SHORT).show();
-
         // not an optimal solution because i have to query table for object again next activity. might need to edit, ok for now.
         Intent intent = new Intent(this, ViewMyItem.class);
         String postObjectID = customAdapter.getItem(position).getObjectId();

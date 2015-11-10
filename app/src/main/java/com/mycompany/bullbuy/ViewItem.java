@@ -135,6 +135,7 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
                         conversation.setItemTitle(thisObjectTitle);
                         conversation.setSellerUn(username);
                         conversation.setBuyerUn(currentUserUn);
+                        conversation.setParticipants(username + " " + currentUserUn);
                         //save conversation to Parse
                         conversation.saveInBackground(new SaveCallback() {
                             @Override
