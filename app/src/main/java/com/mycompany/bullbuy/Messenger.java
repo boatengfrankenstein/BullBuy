@@ -134,19 +134,6 @@ public class Messenger extends AppCompatActivity {
         query.whereEqualTo("parentConversation", conversationId);
         query.orderByAscending("createdAt");
 
-        /* THIS SECTION FORMER CODE - TESTING ABOVE NEW CODE
-        //initialize query
-        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
-
-        //configure query
-        query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-        query.orderByAscending("createdAt");
-        String[] uns = {currentUserUn, recipientUn};
-        query.whereContainedIn("senderId", Arrays.asList(uns));
-        query.whereContainedIn("recipientId", Arrays.asList(uns));
-        query.whereEqualTo("parentConversation", conversationId);
-        */
-
         //fetch messages by executing query
         query.findInBackground(new FindCallback<Message>() {
             @Override
@@ -164,27 +151,5 @@ public class Messenger extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_messenger, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
