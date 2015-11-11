@@ -62,8 +62,6 @@ public class Watch extends AppCompatActivity implements AdapterView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "HELLO", Toast.LENGTH_SHORT).show();
-
         // not an optimal solution because i have to query table for object again next activity. might need to edit, ok for now.
 
         String postObjectID = customAdapter.getItem(position).getObjectId();
