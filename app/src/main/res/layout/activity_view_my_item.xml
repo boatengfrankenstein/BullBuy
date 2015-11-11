@@ -33,17 +33,33 @@
         android:id="@+id/updateButton_ViewMyItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/update"
-        android:typeface="sans"
-        android:textStyle="bold" />
+        android:text="Update Post"
+        android:textStyle="bold"
+        android:fontFamily="roboto-slab"
+        android:background="@color/darkGreen"
+        android:nestedScrollingEnabled="false"
+        android:elegantTextHeight="false"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF" />
 
     <Button
         android:id="@+id/deleteButton_ViewMyItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/delete"
-        android:typeface="sans"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="roboto-slab"
+        android:background="@color/lightGreen"
+        android:nestedScrollingEnabled="false"
+        android:elegantTextHeight="false"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF" />
 </LinearLayout>

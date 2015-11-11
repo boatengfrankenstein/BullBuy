@@ -5,21 +5,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@color/gray"
+    android:background="@android:color/white"
     android:focusableInTouchMode="true"
     tools:context="com.mycompany.bullbuy.Home">
     <Spinner
         android:id="@+id/spinner_Home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/nav_bar_background" >
+        android:layout_height="50dp" >
     </Spinner>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/darkGreen" />
 
     <EditText
         android:id="@+id/searchText_Home"
         android:hint="@string/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,19 +34,40 @@
         <Button
             android:id="@+id/searchButton_Home"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search_text"/>
+            android:layout_height="40dp"
+            android:text="@string/search_text"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:fontFamily="roboto-slab"
+            android:background="@color/darkGreen"
+            android:nestedScrollingEnabled="false"
+            android:elegantTextHeight="false"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#FFFFFF" />
         <Button
             android:id="@+id/clearButton_Home"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/clear"/>
+            android:layout_height="40dp"
+            android:text="@string/clear"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:fontFamily="roboto-slab"
+            android:background="@color/lightGreen"
+            android:nestedScrollingEnabled="false"
+            android:elegantTextHeight="false"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#FFFFFF" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/list_Home"
-        android:layout_marginLeft="-20dp"
-        android:layout_marginStart="-20dp"
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
     </ListView>

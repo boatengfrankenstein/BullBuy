@@ -34,7 +34,7 @@
     <string name="Constructing">UNDER CONSTRUCTION</string>
 
     <string name="ItemTitle">Title (at least 4 characters)</string>
-    <string name="ItemPrice">Price (in Dollars - format: x.xx)</string>
+    <string name="ItemPrice">Price (in USD - format must be X.XX)</string>
     <string name="ItemDescription">Description (at least 10 characters)</string>
     <string name="title_activity_watch">Watchlist</string>
     <string name="Watching">Watch List</string>
