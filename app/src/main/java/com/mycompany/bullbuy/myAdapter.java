@@ -74,13 +74,13 @@ public class myAdapter extends ParseQueryAdapter<ParseObject>{
         }
 
         TextView title = (TextView) v.findViewById(R.id.itemTitle_myAdapter);
-        title.setText("Title: " + postObject.getString("Title"));
-
-        TextView description = (TextView) v.findViewById(R.id.itemDescription_myAdapter);
-        description.setText("Description: " + postObject.getString("Description"));
+        title.setText(postObject.getString("Title"));
 
         TextView price = (TextView) v.findViewById(R.id.itemPrice_myAdapter);
-        price.setText("Price: $" + postObject.getString("Price"));
+        price.setText("$" + postObject.getString("Price"));
+
+        TextView description = (TextView) v.findViewById(R.id.itemDescription_myAdapter);
+        description.setText(postObject.getString("Description"));
 
         return v;
     }
