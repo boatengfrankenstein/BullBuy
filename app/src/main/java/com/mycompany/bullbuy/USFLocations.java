@@ -1,14 +1,9 @@
 package com.mycompany.bullbuy;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,7 +31,7 @@ import java.util.Date;
 
 public class USFLocations extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, com.google.android.gms.location.LocationListener, GoogleApiClient.OnConnectionFailedListener, AdapterView.OnItemSelectedListener {
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private GoogleMap mMap;
     private Marker mMarker;
     private GoogleApiClient mGoogleApiClient;
     private LatLng destLocation;
@@ -64,6 +59,10 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usflocations);
 
+        /* Set up map, populate spinner list with items from string array (locations)
+         * Build google api client
+         */
+
         setUpMapIfNeeded();
 
         mLastUpdateTimeTextView = (TextView)findViewById(R.id.lastUpdateTime);
@@ -85,6 +84,7 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
     }
 
     protected synchronized void buildGoogleApiClient() {
+        // build google api client and connect
         mGoogleApiClient = new
                 GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -102,6 +102,7 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void setUpMapIfNeeded() {
+        // map setup find fragment in xml and get map
         if (mMap == null) {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
@@ -110,6 +111,7 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle bundle) {
+        // when connected create/start to request location updates move camera to the last know location
         createLocationRequest();
         startLocationUpdates();
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
@@ -128,6 +130,7 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
     }
 
     protected void createLocationRequest(){
+        // create the location request and set up intervals, priority then start actual updates
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(5000);
         mLocationRequest.setFastestInterval(2500);
@@ -136,10 +139,15 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
     }
 
     protected void startLocationUpdates(){
+        // request location updates
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
     public void onLocationChanged(Location location){
+        /* when location changes make corresponding updates to map
+         * move camera, remove route
+         * add new route if a selection was made, update the time and the map
+         */
         mCurrentLocation = location;
         LatLng latLng = new LatLng(mCurrentLocation.getLatitude(),
                 mCurrentLocation.getLongitude());
@@ -182,13 +190,18 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
 
     private void updateMap(){
         if(mCurrentLocation != null){
+            // show time of last update
             mLastUpdateTimeTextView.setText(mLastUpdateTime);
         }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        /* remove current destination marker and route
+         * determine what item was selected from spinner
+         * set the lat and lon, corresponding picture, and text
+         * add the marker, add the route
+        */
         if(destMarker != null) {
             destMarker.remove();
             destMarker = null;
@@ -348,7 +361,7 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
                 break;
 
             case "Juniper-Poplar Hall":
-                destLocation = new LatLng(28.0602013,-82.4076104);
+                destLocation = new LatLng(28.059692, -82.418909);
                 hours.setVisibility(View.VISIBLE);
                 hoursMonday.setVisibility(View.VISIBLE);
                 hoursTuesday.setVisibility(View.VISIBLE);
@@ -369,7 +382,7 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
                 break;
 
             case "Engineering Building II":
-                destLocation = new LatLng(28.0602013,-82.4076104);
+                destLocation = new LatLng(28.058722, -82.415355);
                 hours.setVisibility(View.VISIBLE);
                 hoursMonday.setVisibility(View.VISIBLE);
                 hoursTuesday.setVisibility(View.VISIBLE);

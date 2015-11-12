@@ -1,38 +1,36 @@
 package com.mycompany.bullbuy;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
+    // message to be passed with intent
     public final static String MESSAGE = "com.mycompany.bullbuy.Login.MESSAGE";
 
 
+    // declare buttons and edit texts used in activity
     private Button loginButton;
     private Button registerButton;
-
     private EditText eMail;
     private EditText password;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        /* If there is a current user logged on and the user has verified email then keep logged on
+         *  when log out is selected in menu in home activity the PARSEUSER becomes null.
+         */
+
         if(ParseUser.getCurrentUser() != null && ParseUser.getCurrentUser().getBoolean("emailVerified")){
             Intent intent = new Intent(this, Home.class);
             startActivity(intent);
@@ -51,6 +49,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         loginButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
 
+        //When user clicks register, autofill the email edittext. Smooth transition purposes
         Intent intent = getIntent();
         String _email = intent.getStringExtra(Register.MESSAGE);
         eMail.setText(_email);
@@ -72,6 +71,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void loginClick(View view) {
 
         /*Verify in database
+        *   Checks password, and whether email was verified
         * If verified, go to home
         * Else display not logged in*/
         if((eMail.getText().toString().endsWith("@mail.usf.edu")
@@ -97,19 +97,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     }
                 }
             });
-        }
+        } // Non-usf emails not accepted so don't bother attempting to log them in
         else if(!eMail.getText().toString().endsWith("@mail.usf.edu")
                 && !eMail.getText().toString().endsWith("@usf.edu")
                 && !eMail.getText().toString().endsWith("@cse.usf.edu")) {
             displayPopup("Need a USF E-Mail to Use the App.");
         }
+        /*Passwords required to be longer larger than 5 characters at registration so
+            attempting to login user with less than 4 wouldn't make sense*/
         else if(password.getText().length() <= 5) {
             displayPopup("Incorrect password");
         }
     }
 
     /*Send user to registration form
-    * Populate email field in register activity, if user entered it in the activity*/
+    * Populate email field in register activity, if user entered it in the activity
+    */
 
     public void registerClick(View view) {
         Intent intent = new Intent(this, Register.class);
@@ -119,6 +122,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         startActivity(intent);
     }
 
+    // used this in a few java files where multiple toasts showed to user to avoid Toast.... each time
     private void displayPopup(String message){
         Toast toast = Toast.makeText(Login.this, message, Toast.LENGTH_SHORT);
         toast.show();

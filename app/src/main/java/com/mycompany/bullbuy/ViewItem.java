@@ -3,8 +3,6 @@ package com.mycompany.bullbuy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,15 +19,13 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 
 public class ViewItem extends AppCompatActivity implements View.OnClickListener {
 
+    // declare parseimageview, textviews, button, other variables
     private String postObjectID;
-    private ParseObject _PostObject;
-
     private ParseImageView itemPhoto;
     private TextView itemTitle;
     private TextView itemPrice;
@@ -42,7 +38,6 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
     private String thisObjectTitle;
     private String username;
     private static String currentUserUn;
-    private String conversationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +51,7 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
         addButton = (Button) findViewById(R.id.addButton_ViewItem);
         messageButton = (Button) findViewById(R.id.messageSellerButton_ViewItem);
 
+        // get id to know which postobject was selected in home activity to query table for that postobject
         Intent intent = getIntent();
         postObjectID = intent.getStringExtra(Home.MESSAGE);
 
@@ -63,18 +59,18 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
         username = "";
         thisObjectTitle = "";
         currentUserUn = ParseUser.getCurrentUser().getUsername();
-        conversationId = "";
 
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PostObject");
-
+        // get the parsefile of the postobject and postobject itself and load on screen
+        ParseQuery<ParseObject> query = new ParseQuery<>("PostObject");
         query.getInBackground(postObjectID, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject PostObject, ParseException e) {
                 if(e == null) {
-                    _PostObject = PostObject;
                     ParseFile photoFile = PostObject.getParseFile("Photo");
-                    itemPhoto.setParseFile(photoFile);
-                    itemPhoto.loadInBackground();
+                    if(photoFile != null) {
+                        itemPhoto.setParseFile(photoFile);
+                        itemPhoto.loadInBackground();
+                    }
 
                     itemTitle.setText(PostObject.get("Title").toString());
                     itemPrice.setText('$' + PostObject.get("Price").toString());
@@ -98,11 +94,6 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
     //Quick function to set title of the item - added by Dane
     public void setThisObjectTitle(String string) {
         thisObjectTitle = string;
-    }
-
-    //Quick function to set objectId of newly created conversation - added by Dane
-    public void setThisConversationId(String string) {
-        conversationId = string;
     }
 
     @Override
@@ -165,6 +156,9 @@ public class ViewItem extends AppCompatActivity implements View.OnClickListener 
         startActivity(intent);
     }
 
+    /* If user wants to add the item to the watchlist, then add the object's id to the file
+     * in internal storage. Objectids later used to determine which object to query Parse for
+     */
     private void addClicked(){
         File file = new File(getFilesDir().getAbsolutePath() + "/Watchlist");
 

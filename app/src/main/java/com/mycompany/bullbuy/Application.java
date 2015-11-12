@@ -10,6 +10,7 @@ public class Application extends android.app.Application {
 
     @Override
     public void onCreate(){
+        //  Associate app with app in Parse
         super.onCreate();
         ParseObject.registerSubclass(Conversation.class);
         ParseObject.registerSubclass(Message.class);

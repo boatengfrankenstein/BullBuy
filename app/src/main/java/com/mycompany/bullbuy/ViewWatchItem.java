@@ -3,8 +3,6 @@ package com.mycompany.bullbuy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
@@ -30,11 +27,9 @@ import java.util.List;
 
 public class ViewWatchItem extends AppCompatActivity implements View.OnClickListener {
 
+    // declare variables, list, parseimageview, textviews, and buttons
     private String postObjectID;
-    private ParseObject _PostObject;
-
-    private ArrayList<String> IDs = new ArrayList<String>();
-
+    private ArrayList<String> IDs = new ArrayList<>();
     private ParseImageView itemPhoto;
     private TextView itemTitle;
     private TextView itemPrice;
@@ -47,7 +42,6 @@ public class ViewWatchItem extends AppCompatActivity implements View.OnClickList
     private String thisObjectTitle;
     private String username;
     private static String currentUserUn;
-    private String conversationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +55,7 @@ public class ViewWatchItem extends AppCompatActivity implements View.OnClickList
         messageButton = (Button) findViewById(R.id.messageSellerButton_ViewWatchItem);
         removeButton = (Button) findViewById(R.id.removeButton_ViewWatchItem);
 
+        // get postobjectid which was passed with intent
         Intent intent = getIntent();
         postObjectID = intent.getStringExtra(Watch.MESSAGE);
 
@@ -68,17 +63,18 @@ public class ViewWatchItem extends AppCompatActivity implements View.OnClickList
         username = "";
         thisObjectTitle = "";
         currentUserUn = ParseUser.getCurrentUser().getUsername();
-        conversationId = "";
 
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PostObject");
+        // query Parse for the post according to postobjectid (load photo and fields related to post
+        ParseQuery<ParseObject> query = new ParseQuery<>("PostObject");
         query.getInBackground(postObjectID, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject PostObject, ParseException e) {
                 if(e == null){
-                    _PostObject = PostObject;
                     ParseFile photoFile = PostObject.getParseFile("Photo");
-                    itemPhoto.setParseFile(photoFile);
-                    itemPhoto.loadInBackground();
+                    if(photoFile != null) {
+                        itemPhoto.setParseFile(photoFile);
+                        itemPhoto.loadInBackground();
+                    }
 
                     itemTitle.setText(PostObject.get("Title").toString());
                     itemPrice.setText('$' + PostObject.get("Price").toString());
@@ -104,10 +100,6 @@ public class ViewWatchItem extends AppCompatActivity implements View.OnClickList
         thisObjectTitle = string;
     }
 
-    //Quick function to set objectId of newly created conversation - added by Dane
-    public void setThisConversationId(String string) {
-        conversationId = string;
-    }
 
     @Override
     public void onClick(View v) {
@@ -169,6 +161,9 @@ public class ViewWatchItem extends AppCompatActivity implements View.OnClickList
     }
 
     private void removeClicked(){
+        /* if an item is removed from the watch list get all ids from file,
+         * store them in a list, remove postobjectid that user wants to delete, and write remaining to file
+         */
         try {
             FileInputStream stream = openFileInput("Watchlist");
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -185,14 +180,12 @@ public class ViewWatchItem extends AppCompatActivity implements View.OnClickList
         }
 
         IDs.remove(postObjectID);
-       // Watch.IDs.remove(postObjectID);
 
         try {
             FileOutputStream stream = openFileOutput("Watchlist", MODE_PRIVATE);
 
             for (String postID : IDs){
                 stream.write((postID + "\n").getBytes());
-                //System.out.println(postID);
             }
 
             stream.close();
@@ -201,6 +194,7 @@ public class ViewWatchItem extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
 
+        // Go to watchlist activity
         Intent intent = new Intent(this, Watch.class);
         startActivity(intent);
     }

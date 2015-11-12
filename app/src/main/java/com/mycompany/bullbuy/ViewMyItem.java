@@ -9,8 +9,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,21 +29,18 @@ import java.io.IOException;
 
 public class ViewMyItem extends AppCompatActivity implements View.OnClickListener {
 
+    //declare variables, edittexts, buttons, and parsefile
     private EditText itemTitle;
     private EditText itemPrice;
     private EditText itemDescription;
-
     private String initialTitle;
     private String initialPrice;
     private String initialDescription;
-
     private ParseObject _PostObject;
     private String postObjectID;
     private  ParseImageView itemPhoto;
-    //possible boolean to determine if user takes new photo
     private Button updateButton;
     private  Button deleteButton;
-
     private File photoFile = null;
     private String photoPath;
     private Bitmap photoBitmap;
@@ -64,13 +59,14 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
         updateButton = (Button) findViewById(R.id.updateButton_ViewMyItem);
         deleteButton = (Button) findViewById(R.id.deleteButton_ViewMyItem);
 
+        // get id to know which postobject was selected in home activity to query table for that postobject
         Intent intent = getIntent();
         postObjectID = intent.getStringExtra(MyItems.MESSAGE);
 
         itemPhoto = (ParseImageView) findViewById(R.id.photo_ViewMyItem);
 
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("PostObject");
-
+        // get the parsefile of the postobject and postobject itself and load on screen
+        ParseQuery<ParseObject> query = new ParseQuery<>("PostObject");
         query.getInBackground(postObjectID, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject PostObject, ParseException e) {
@@ -78,10 +74,10 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
                     _PostObject = PostObject;
 
                     ParseFile imageFile = PostObject.getParseFile("Photo");
-                   // if (imageFile != null) {
+                    if(imageFile != null) {
                         itemPhoto.setParseFile(imageFile);
                         itemPhoto.loadInBackground();
-                    //}
+                    }
 
                     itemTitle.setText(PostObject.get("Title").toString());
                     initialTitle = itemTitle.getText().toString();
@@ -117,7 +113,8 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
     }
 
     public void updateClicked(View v){
-        if(     !photoUpdated &&
+        //update the post if an update was actually made, update is not attempted if nothing changes
+        if(!photoUpdated &&
                 initialTitle.equals(itemTitle.getText().toString())&&
                 initialPrice.equals(itemPrice.getText().toString()) &&
                 initialDescription.equals(itemDescription.getText().toString())){
@@ -139,6 +136,7 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
 
         else{
 
+            //only modified fields are updated
             if(photoUpdated){
                 _PostObject.put("Photo", parsefile);
             }
@@ -162,13 +160,17 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
                         Toast.makeText(ViewMyItem.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }); //ensure this updates the data
+            });
+            // Go to the MyItems activity
             Intent intent = new Intent(this, MyItems.class);
             startActivity(intent);
         }
     }
 
     public void deleteClicked(View v){
+        /* Delete the postobject from the table
+         * Go to myitems
+         */
         _PostObject.deleteInBackground(new DeleteCallback() {
             @Override
             public void done(ParseException e) {
@@ -185,11 +187,16 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
     }
 
     public void photoClicked(View v){
-        photoUpdated = true;
+        // can't take photo if device does not have camera
+        photoUpdated = true; // note photo was updated
         if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
             Toast.makeText(this, "The device has no camera.", Toast.LENGTH_SHORT).show();
         }
         else {
+             /* go to camera. create a file in external storage,
+             * designate that file to be storage location for the picture taken
+             * onactivityresult invoked after this method (when camera returns)
+             */
             Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePic.resolveActivity(getPackageManager()) != null) {
                 try{
@@ -211,23 +218,25 @@ public class ViewMyItem extends AppCompatActivity implements View.OnClickListene
 
     @Override
     protected void onActivityResult(int reqCode, int resCode, Intent photo){
+        /* If picture was taken and everything was successful,
+         * decode the file (path was saved to a string in photoclicked method before starting cameractivity
+         * display resulting bitmap
+         * compress the bitmap to avoid overhead of large photo file
+         * resulting bytearrayoutputstream converted to bytearray,
+         * which is then used to make a parsefile and save it to cloud
+         */
         if(reqCode == 1 && resCode == RESULT_OK){
-            //Bundle getPic = photo.getExtras();
-            //img = (Bitmap) getPic.get("data");
             photoBitmap = BitmapFactory.decodeFile(photoPath);
             itemPhoto.setImageBitmap(photoBitmap);
 
-            // get bytes. unless i decide to save image to a file instead. i probably should.
-            // declared byte[] data up top
-            // see photoclicked method
-            //upload file to parse
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             if(photoBitmap != null) {
                 photoBitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream);
                 photoBytes = stream.toByteArray();
             }
             parsefile = new ParseFile("post.JPEG",photoBytes);
-            parsefile.saveInBackground();
+            parsefile.saveInBackground(); // upload file to parse
         }
     }
 }

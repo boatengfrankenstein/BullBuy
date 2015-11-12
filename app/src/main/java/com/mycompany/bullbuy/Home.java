@@ -3,8 +3,6 @@ package com.mycompany.bullbuy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,16 +11,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.util.List;
-
 
 public class Home extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
+    // declare buttons, edit texts, listviews, myadapters, and spinner used in activity
     private static EditText searchBar;
     private Button searchButton;
     private Button clearButton;
@@ -32,10 +25,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
 
     private Spinner spinner;
 
+    // accessed by myAdapter to query the table for what the user is searching
     public static String getSearchBar(){
         return searchBar.getText().toString().toLowerCase();
     }
 
+    // message passed with intent
     public final static String MESSAGE = "com.mycompany.bullbuy.Home.MESSAGE";
 
     @Override
@@ -51,12 +46,16 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
         searchButton.setOnClickListener(this);
         clearButton.setOnClickListener(this);
 
+        // populate spinner with string array in strings file, spinner used as menu
         spinner = (Spinner) findViewById(R.id.spinner_Home);
         ArrayAdapter<CharSequence> menuAdapter = ArrayAdapter.createFromResource(this, R.array.app_menu, android.R.layout.simple_spinner_item);
         menuAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(menuAdapter);
         spinner.setOnItemSelectedListener(this);
 
+        /*set adapter used to load postobjects from table to the listview and load
+         *  more on this in myAdapter.java
+         */
         customAdapter = new myAdapter(this, 2);
         listItems.setAdapter(customAdapter);
         customAdapter.loadObjects();
@@ -66,7 +65,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
 
     @Override
     public void onClick(View v) {
-        //listItems.removeAllViewsInLayout();
         switch(v.getId()){
             case R.id.searchButton_Home:
                 searchButtonClicked(v);
@@ -81,20 +79,20 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
         if(searchBar.getText().toString().equals("")){
             Toast.makeText(this, "No search criteria entered", Toast.LENGTH_SHORT).show();
         }
-
+        /* search adapter used to query the table for postobjects that match the search criteria
+         * set the adapter to the searchadapter and load
+         */
         else{
             searchAdapter = new myAdapter(this, 3);
             listItems.setAdapter(searchAdapter);
             searchAdapter.loadObjects();
         }
-
-
     }
 
     private void clearButtonClicked(View view){
+        // clear search criteria and view all postobjects
         if(listItems.getAdapter() == searchAdapter){
             listItems.setAdapter(customAdapter);
-            //listItems.loadObjects(); to have latest info. don't think i would need
         }
         searchBar.setText("");
     }
@@ -102,8 +100,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Ada
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        // not an optimal solution because i have to query table for object again next activity. might need to edit, ok for now.
-        // maybe could just blow up view item or something idl might just leave it how it s bc time
+        /* If a post is clicked, go to view item activity.
+         *  Pass objectid to be able to query in next activity
+         *  Check current adapter to ensure correct id is passed
+         */
+
         Intent intent = new Intent(this, ViewItem.class);
         String postObjectID;
         if (listItems.getAdapter() == searchAdapter){

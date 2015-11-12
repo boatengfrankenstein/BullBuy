@@ -3,24 +3,22 @@ package com.mycompany.bullbuy;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Watch extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    // message used to pass intent
     public final static String MESSAGE = "com.mycompany.bullbuy.Watch.MESSAGE";
 
-    private static ArrayList<String> IDs = new ArrayList<String>();
+    //declare arraylist (with acccessor function), myAdapter, and listview
+    private static ArrayList<String> IDs = new ArrayList<>();
     public static ArrayList<String> getIDS(){
         return IDs;
     }
@@ -33,6 +31,8 @@ public class Watch extends AppCompatActivity implements AdapterView.OnItemClickL
         setContentView(R.layout.activity_watch);
 
         watchlist = (ListView) findViewById(R.id.list_Watch);
+
+        //open the internally stored file, read the postobjectids, and add them to the arraylist
         try {
             FileInputStream stream = openFileInput("Watchlist");
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -48,24 +48,23 @@ public class Watch extends AppCompatActivity implements AdapterView.OnItemClickL
             e.printStackTrace();
         }
 
+        /* customadapter used to query Parse for those postobjects (ids found in internal file are used)
+         * load postobjects
+        */
         customAdapter = new myAdapter(this, 1);
         watchlist.setAdapter(customAdapter);
         customAdapter.loadObjects();
 
-        for (String postID : IDs){
-            System.out.println(postID);
-        }
-
         watchlist.setOnItemClickListener(this);
-        IDs.clear();
+        IDs.clear(); // clearids in case user removes so dont query parse for that id nexttime
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // not an optimal solution because i have to query table for object again next activity. might need to edit, ok for now.
-
+        // if user selects an item save its postobjectid
         String postObjectID = customAdapter.getItem(position).getObjectId();
 
+        // go to viewwatchitem and pass postobjectd with the intent
         Intent intent = new Intent(this, ViewWatchItem.class);
         intent.putExtra(MESSAGE,postObjectID);
         startActivity(intent);

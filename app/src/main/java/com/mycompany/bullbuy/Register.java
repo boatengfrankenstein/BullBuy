@@ -1,30 +1,24 @@
 package com.mycompany.bullbuy;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
-
+    // passing intent to login activity
     public final static String MESSAGE = "com.mycompany.bullbuy.Register.MESSAGE";
 
+    // declare edittexts and button
     private EditText name;
     private EditText email;
     private EditText password;
-
     private Button registerButton;
 
     @Override
@@ -37,12 +31,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         password = (EditText) findViewById(R.id.password_REGISTER);
         registerButton = (Button) findViewById(R.id.registerButton_REGISTER);
 
+        //get email that was entered in registration so user does not have to type it again
         Intent intent = getIntent();
         String _email = intent.getStringExtra(Login.MESSAGE);
         email.setText(_email);
-
         registerButton.setOnClickListener(this);
 
+        // Log out any current users
         ParseUser.getCurrentUser().logOut();
     }
 
@@ -56,7 +51,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void registerClick(View view) {
-
+        /* ensure that name, email, and password meet requirements
+         * verify the emails usf related, email will be sent there
+         * user must verify before able to login
+         * make parseuser with checked input, sign up in background
+         * if sign up was successful, go to login pass email with intent
+         */
         if (name.getText().toString().length() >= 1
             && ((email.getText().toString().endsWith("@mail.usf.edu")
                 || (email.getText().toString().endsWith("@cse.usf.edu"))
@@ -68,8 +68,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             newUser.setUsername(email.getText().toString());
             newUser.setEmail(email.getText().toString());
             newUser.setPassword(password.getText().toString());
-
-            //registerButton.setEnabled(false);
             newUser.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -85,7 +83,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
                     else{
                         displayPopup("Registration Unsuccessful");
-                        //registerButton.setEnabled(true);
                     }
                 }
             });
@@ -93,6 +90,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         }
 
+        // display messages corresponding to any requirements not met
         else{
             if(name.getText().toString().length() < 1){
                 displayPopup("Enter a name");
@@ -108,6 +106,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    // used this in a few java files where multiple toasts showed to user to avoid Toast.... each time
     private void displayPopup(String message){
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         toast.show();
