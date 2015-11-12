@@ -8,19 +8,6 @@
     android:background="@color/darkGreen"
     tools:context="com.mycompany.bullbuy.MyItems">
 
-    <TextView android:text="@string/MyItems"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="32dp"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:padding="10dp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black"/>
-
     <ListView
         android:id="@+id/list_MyItems"
         xmlns:android="http://schemas.android.com/apk/res/android"

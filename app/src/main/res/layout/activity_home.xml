@@ -11,22 +11,29 @@
     <Spinner
         android:id="@+id/spinner_Home"
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="50dp"
+        android:background="@drawable/nav_bar_background">
     </Spinner>
-
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginBottom="5dp"
         android:background="@color/darkGreen" />
-
-    <EditText
-        android:id="@+id/searchText_Home"
-        android:hint="@string/search"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search" />
+        <EditText
+            android:id="@+id/searchText_Home"
+            android:hint="@string/search"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,8 +49,10 @@
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"
             android:fontFamily="roboto-slab"
+            android:layout_marginLeft="80dp"
             android:background="@color/darkGreen"
             android:nestedScrollingEnabled="false"
+            android:gravity="center"
             android:elegantTextHeight="false"
             android:textColor="#FFFFFF"
             android:textColorHighlight="#FFFFFF" />
@@ -54,6 +63,7 @@
             android:text="@string/clear"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_gravity="center_horizontal"
@@ -65,11 +75,19 @@
             android:textColor="#FFFFFF"
             android:textColorHighlight="#FFFFFF" />
     </LinearLayout>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_title"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginStart="110dp"
+        android:fontFamily="roboto-slab" />
     <ListView
         android:id="@+id/list_Home"
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
     </ListView>
-
 </LinearLayout>

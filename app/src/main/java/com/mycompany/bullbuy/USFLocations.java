@@ -256,7 +256,7 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
 
                 break;
             case "Interdisciplinary Sciences":
-                destLocation = new LatLng(28.0615119,-82.4165242);
+                destLocation = new LatLng(28.061931, -82.414225);
                 hours.setVisibility(View.VISIBLE);
                 hoursMonday.setVisibility(View.VISIBLE);
                 hoursTuesday.setVisibility(View.VISIBLE);

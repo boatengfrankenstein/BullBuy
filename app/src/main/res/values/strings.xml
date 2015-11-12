@@ -77,6 +77,7 @@
     <string name="title_activity_view_watch_item">View Item</string>
     <string name="title_activity_results">Results</string>
     <string name="title_activity_conversations">Conversations</string>
+    <string name="search_title">View recent postings:</string>
     <string name="conversationsListHeader">Tap a conversation to open it.</string>
     <string name="sender_message_header">You</string>
     <string name="recipient_message_header">Them</string>

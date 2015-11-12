@@ -7,24 +7,24 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     tools:context="com.mycompany.bullbuy.PostItem">
-
-
     <ImageView
         android:id="@+id/photo_PostItem"
         android:layout_width="144dp"
         android:layout_height="144dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_photo_camera_black_48dp"
-        android:layout_marginBottom="10dp" />
-
+        android:src="@drawable/sell_item"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"/>
     <EditText
         android:id="@+id/itemTitle_PostItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:hint="@string/ItemTitle"
-        android:layout_marginBottom="5dp" />
-
+        android:fontFamily="roboto-slab"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
     <EditText
         android:id="@+id/itemPrice_PostItem"
         android:layout_width="match_parent"
@@ -32,14 +32,19 @@
         android:inputType="numberDecimal"
         android:singleLine="true"
         android:hint="@string/ItemPrice"
-        android:layout_marginBottom="5dp" />
+        android:fontFamily="roboto-slab"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
     <EditText
         android:id="@+id/itemDescription_PostItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/ItemDescription"
-        android:layout_marginBottom="10dp" />
-
+        android:fontFamily="roboto-slab"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
     <Button
         android:id="@+id/postButton_PostItem"
         android:layout_width="match_parent"
@@ -54,5 +59,4 @@
         android:nestedScrollingEnabled="false"
         android:elegantTextHeight="false"
         android:textColor="#FFFFFF" />
-
 </LinearLayout>
