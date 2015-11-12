@@ -8,36 +8,46 @@
     android:background="@android:color/white"
     android:focusableInTouchMode="true"
     tools:context="com.mycompany.bullbuy.Home">
+
     <Spinner
         android:id="@+id/spinner_Home"
+        android:background="@drawable/drop_down"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/nav_bar_background">
+        android:fontFamily="roboto-slab"
+        android:layout_height="50dp" >
     </Spinner>
+
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginBottom="5dp"
         android:background="@color/darkGreen" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/search" />
+
         <EditText
             android:id="@+id/searchText_Home"
             android:hint="@string/search"
             android:layout_width="300dp"
+            android:fontFamily="roboto-slab"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/searchButton_Home"
             android:layout_width="wrap_content"
@@ -50,12 +60,14 @@
             android:textStyle="bold"
             android:fontFamily="roboto-slab"
             android:layout_marginLeft="80dp"
+            android:layout_marginStart="80dp"
             android:background="@color/darkGreen"
             android:nestedScrollingEnabled="false"
             android:gravity="center"
             android:elegantTextHeight="false"
             android:textColor="#FFFFFF"
             android:textColorHighlight="#FFFFFF" />
+
         <Button
             android:id="@+id/clearButton_Home"
             android:layout_width="wrap_content"
@@ -75,6 +87,7 @@
             android:textColor="#FFFFFF"
             android:textColorHighlight="#FFFFFF" />
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,6 +98,7 @@
         android:layout_marginLeft="100dp"
         android:layout_marginStart="110dp"
         android:fontFamily="roboto-slab" />
+
     <ListView
         android:id="@+id/list_Home"
         android:layout_width="match_parent"

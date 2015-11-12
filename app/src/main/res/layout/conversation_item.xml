@@ -5,34 +5,40 @@
     android:layout_height="wrap_content"
     android:padding="10dp" >
 
-    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-        android:layout_marginRight="10dp" android:background="@color/lightGreen"
-        android:paddingTop="5dp" android:paddingBottom="5dp"
-        android:paddingLeft="3dp" android:paddingRight="3dp" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="item"
+            android:fontFamily="roboto-slab"
             android:id="@+id/conversationHeader"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textSize="16sp"
             android:paddingLeft="3dp"
-            android:textColor="@android:color/black"
+            android:textColor="#006747"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Month Day Year, Time"
+            android:fontFamily="roboto-slab"
             android:id="@+id/dateConversationCreated"
             android:layout_below="@+id/conversationHeader"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:paddingLeft="3dp"
-            android:textColor="@android:color/black"
+            android:textColor="#9CCB3B"
             android:textSize="14sp" />
     </RelativeLayout>
 

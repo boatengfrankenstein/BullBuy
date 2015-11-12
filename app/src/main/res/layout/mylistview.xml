@@ -5,10 +5,14 @@
     android:layout_height="wrap_content"
     android:padding="10dp" >
 
-    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-        android:layout_marginRight="10dp" android:background="@color/lightGreen"
-        android:paddingTop="5dp" android:paddingBottom="5dp"
-        android:paddingLeft="3dp" android:paddingRight="3dp" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp" >
 
         <TextView
             android:id="@+id/itemTitle_myAdapter"
@@ -18,8 +22,8 @@
             android:layout_toRightOf="@+id/itemPhoto_myAdapter"
             android:layout_toEndOf="@id/itemPhoto_myAdapter"
             android:layout_alignTop="@id/itemPhoto_myAdapter"
-            android:paddingLeft="4dp"
-            android:textColor="#000000"
+            android:paddingLeft="10dp"
+            android:textColor="#006747"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/itemPrice_myAdapter"
@@ -29,16 +33,16 @@
             android:layout_toRightOf="@+id/itemPhoto_myAdapter"
             android:layout_toEndOf="@id/itemPhoto_myAdapter"
             android:layout_below="@id/itemTitle_myAdapter"
-            android:paddingLeft="4dp"
-            android:textColor="@android:color/black"/>
+            android:paddingLeft="10dp"
+            android:textColor="#9CCB3B"/>
         <TextView
             android:id="@+id/itemDescription_myAdapter"
             android:text="Description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingLeft="4dp"
-            android:textColor="#000000"
+            android:paddingLeft="10dp"
+            android:textColor="#747474"
             android:layout_below="@+id/itemPrice_myAdapter"
             android:layout_alignLeft="@+id/itemPrice_myAdapter"
             android:layout_alignStart="@+id/itemPrice_myAdapter" />
@@ -55,4 +59,4 @@
 
 </RelativeLayout>
 
-<!--Source: Tutorial - Parse Query Adapter Tutorial-->
+    <!--Source: Tutorial - Parse Query Adapter Tutorial-->

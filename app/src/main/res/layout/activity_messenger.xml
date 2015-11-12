@@ -18,7 +18,6 @@
         android:stackFromBottom="true"
         tools:listitem="@layout/message_left"/>
 
-
     <RelativeLayout
         android:id="@+id/relSendMessage"
         android:layout_width="wrap_content"
@@ -37,6 +36,7 @@
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:layout_marginRight="10dp"
+            android:fontFamily="roboto-slab"
             android:layout_alignTop="@+id/btnSend"
             android:background="@android:color/white"
             android:layout_alignBottom="@+id/btnSend"

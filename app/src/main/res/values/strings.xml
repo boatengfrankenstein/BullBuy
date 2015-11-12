@@ -23,6 +23,7 @@
     <string name="title_activity_home">Home</string>
     <string name="search">Search BullBuy</string>
     <string name="search_text">Search</string>
+    <string name="search_title">View recent postings:</string>
 
     <string name="Post">Post</string>
     <string name="Watch">Watch</string>
@@ -61,6 +62,8 @@
 
     <string name="title_activity_my_items">My Items</string>
     <string name="myItems">My Items</string>
+    <string name="myItems_description">Items that you have posted.</string>
+    <string name="myWatch_description">Items that you are watching.</string>
 
     <string name="title_activity_messenger">Messaging</string>
     <string name="Messages">Messages</string>
@@ -77,7 +80,6 @@
     <string name="title_activity_view_watch_item">View Item</string>
     <string name="title_activity_results">Results</string>
     <string name="title_activity_conversations">Conversations</string>
-    <string name="search_title">View recent postings:</string>
     <string name="conversationsListHeader">Tap a conversation to open it.</string>
     <string name="sender_message_header">You</string>
     <string name="recipient_message_header">Them</string>
