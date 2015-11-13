@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
             });
         } // Non-usf emails not accepted so don't bother attempting to log them in
-        else if(!eMail.getText().toString().endsWith("@mail.usf.edu")
+        else if(!eMail.getText().toString().endsWith("@mail.usf.edu")//allowing usf.edu and cse.usf.edu for professor to be able to grade (release 1 only)
                 && !eMail.getText().toString().endsWith("@usf.edu")
                 && !eMail.getText().toString().endsWith("@cse.usf.edu")) {
             displayPopup("Need a USF E-Mail to Use the App.");

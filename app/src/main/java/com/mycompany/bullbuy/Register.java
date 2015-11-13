@@ -95,7 +95,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             if(name.getText().toString().length() < 1){
                 displayPopup("Enter a name");
             }
-            else if(!(email.getText().toString().endsWith("@mail.usf.edu"))
+            else if(!(email.getText().toString().endsWith("@mail.usf.edu")) //allowing usf.edu and cse.usf.edu for professor to be able to grade (release 1 only)
                     && !(email.getText().toString().endsWith("@usf.edu"))
                     && !(email.getText().toString().endsWith("@cse.usf.edu"))){
                 displayPopup("Need a @usf.edu or @mail.usf.edu to register");
