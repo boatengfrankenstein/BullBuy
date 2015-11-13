@@ -22,8 +22,6 @@ import java.util.List;
 public class Conversations extends AppCompatActivity {
 
     //class variables
-    TextView tvItem;
-    TextView tvDate;
     private ListView conversationsListView;
     private ArrayList<Conversation> cConversations;
     private ConversationAdapter cAdapter;
@@ -35,12 +33,34 @@ public class Conversations extends AppCompatActivity {
         setContentView(R.layout.activity_conversations);
 
         conversationsListView = (ListView) findViewById(R.id.list_Conversations);
-        cConversations = new ArrayList<Conversation>();
+        cConversations = new ArrayList<>();
         cAdapter = new ConversationAdapter(Conversations.this, cConversations);
         conversationsListView.setAdapter(cAdapter);
 
         loadConversations();
         loadConversations(); //do it agaaaaaiiin
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_conversations, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_refresh) {
+            loadConversations();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     //create clickable list of user's conversations by querying them from Parse.

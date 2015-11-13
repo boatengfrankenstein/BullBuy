@@ -253,7 +253,6 @@ public class USFLocations extends AppCompatActivity implements GoogleApiClient.C
                 hoursSaturday.setText("Saturday: 8:00am - 1:00am");
                 hoursSunday.setText("Sunday: 10:00am - 12:00am");
                 location.setImageDrawable(getResources().getDrawable(R.drawable.msc));
-
                 break;
             case "Interdisciplinary Sciences":
                 destLocation = new LatLng(28.061931, -82.414225);
